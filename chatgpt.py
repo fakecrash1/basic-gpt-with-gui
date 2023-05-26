@@ -22,7 +22,25 @@ def send():
             if os.path.isfile(filename):
                 input_file = open(filename, 'rb')
                 key = pickle.load(input_file)
-                my_text.insert(END, "Thinking...")
+                #my_text.insert(END, "Thinking...")
+                # Define API Key to ChatGPT
+                openai.api_key = key
+                # Create an instance
+                openai.Model.list()
+                # Define Querry / Response
+                response = openai.Completion.create(
+                            engine="text-davinci-003",
+                            prompt=chat_entry.get(),
+                            max_tokens=320,
+                            n=1,
+                            stop=None,
+                            temperature=0.5,
+                            frequency_penalty=0.5,
+                            presence_penalty=0.5,
+                            best_of=1,
+                            )
+                my_text.insert(END, (response["choices"][0]["text"]))
+                my_text.insert(END,"\n")
             else:
                 input_file = open(filename, 'wb')
                 input_file.close()
