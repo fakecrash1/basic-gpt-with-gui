@@ -37,5 +37,21 @@ text_scroll.grid(row=0, column=1, sticky="ns")
 # Add the scrollbar to the textbox
 my_text.configure(yscrollcommand=text_scroll.set)
 
+# Entry Widget to type stuff to ChatGPT
+chat_entry = customtkinter.CTkEntry(root,
+    placeholder_text="Type something to ChatGPT...",
+    width=535,
+    height=50,
+    border_width=1)
+chat_entry.pack(pady=10)
+
+
+
+
+
+
+
+
+
 
 root.mainloop()
