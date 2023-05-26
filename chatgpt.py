@@ -22,26 +22,35 @@ def clear():
 
 def api():
     filename = "api_key"
-    if os.path.isfile(filename):
-        input_file = open(filename, 'rb')
-        key = pickle.load(input_file)
-        api_entry.insert(END, key)
-    else:
-        input_file = open(filename, 'wb')
-        input_file.close()
+    try:
+        if os.path.isfile(filename):
+            input_file = open(filename, 'rb')
+            key = pickle.load(input_file)
+            api_entry.insert(END, key)
+        else:
+            input_file = open(filename, 'wb')
+            input_file.close()
+    # Error handling
+    except Exception as e:
+        my_text.insert(END, f"\n\n There was an error: \n{e}")
 
     root.geometry('600x730')    # resize app to 730 at y
     api_frame.pack(pady=30)
 
 def save_key():
     filename = "api_key"
-    output_file = open(filename, 'wb')
-    pickle.dump(api_entry.get(), output_file)
     
-    api_entry.delete(0, END)
-    
-    api_frame.pack_forget()
-    root.geometry('600x600')    # resize app to 600 at y
+    try:
+        output_file = open(filename, 'wb')
+        pickle.dump(api_entry.get(), output_file)
+        
+        api_entry.delete(0, END)
+        
+        api_frame.pack_forget()
+        root.geometry('600x600')    # resize app to 600 at y
+    # Error handling
+    except Exception as e:
+        my_text.insert(END, f"\n\n There was an error: \n{e}")
 
 # Create text frame
 text_frame = customtkinter.CTkFrame(root)
