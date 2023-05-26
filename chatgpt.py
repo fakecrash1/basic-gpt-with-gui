@@ -29,6 +29,13 @@ my_text = Text(text_frame,
     selectbackground="#1f538d")     # background of selection "blue"
 my_text.grid(row=0, column=0)
 
+# Create scroll bar widget
+text_scroll = customtkinter.CTkScrollbar(text_frame,
+    command=my_text.yview)
+text_scroll.grid(row=0, column=1, sticky="ns")
+
+# Add the scrollbar to the textbox
+my_text.configure(yscrollcommand=text_scroll.set)
 
 
 root.mainloop()
