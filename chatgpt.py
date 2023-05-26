@@ -12,7 +12,16 @@ root.iconbitmap('./icons/ai_lt.ico')
 
 # Set Color Scheme
 customtkinter.set_appearance_mode("dark")
-customtkinter.set_default_color_theme("dark-blue")
+customtkinter.set_default_color_theme("green")
+
+# Buttons (send, clear, api)
+def send():
+    pass
+def clear():
+    pass
+def api():
+    pass
+
 
 # Create text frame
 text_frame = customtkinter.CTkFrame(root)
@@ -45,11 +54,35 @@ chat_entry = customtkinter.CTkEntry(root,
     border_width=1)
 chat_entry.pack(pady=10)
 
+# Create buttons frame
+button_frame = customtkinter.CTkFrame(root, fg_color="#242424")
+button_frame.pack(pady=10)
 
 
+# Configure grid weights / 4 column - columnspan
+button_frame.grid_columnconfigure(0, weight=1)
+button_frame.grid_columnconfigure(1, weight=1)
+button_frame.grid_columnconfigure(2, weight=1)
+button_frame.grid_columnconfigure(3, weight=1)
 
 
+# send button
+submit_button = customtkinter.CTkButton(button_frame,
+    text="Send message",
+    command=send)
+submit_button.grid(row=0, column=0, columnspan=4, sticky='we', padx=10, pady=5)
 
+# clear button
+clear_button = customtkinter.CTkButton(button_frame,
+    text="Clear conversation",
+    command=send)
+clear_button.grid(row=1, column=0, columnspan=2, sticky='we', padx=10, pady=5)
+
+# Api key button
+api_button = customtkinter.CTkButton(button_frame,
+    text="Insert API Key",
+    command=send)
+api_button.grid(row=1, column=2, columnspan=2, sticky='we', padx=10, pady=5)
 
 
 
