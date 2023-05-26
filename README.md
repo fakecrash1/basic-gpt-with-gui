@@ -1,2 +1,2 @@
-# Basic ChatGPT App with simple User Iterface
+# Basic ChatGPT App with simple Graphical User Iterface (gui)
 
