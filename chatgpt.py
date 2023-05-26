@@ -15,6 +15,7 @@ customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
 
 filename = "api_key"
+
 # Buttons (send, clear, api, save_key)
 def send():
     if chat_entry.get():
@@ -22,6 +23,8 @@ def send():
             if os.path.isfile(filename):
                 input_file = open(filename, 'rb')
                 key = pickle.load(input_file)
+                # Add user message to the chat
+                my_text.insert(END, "User: \n\n"+ chat_entry.get() + "\n")
                 #my_text.insert(END, "Thinking...")
                 # Define API Key to ChatGPT
                 openai.api_key = key
@@ -39,14 +42,15 @@ def send():
                             presence_penalty=0.5,
                             best_of=1,
                             )
-                my_text.insert(END, (response["choices"][0]["text"]))
-                my_text.insert(END,"\n")
+                my_text.insert(END,"\n\nChatGPT: "+ (response["choices"][0]["text"]))
+                my_text.insert(END,"\n\n\n")
             else:
                 input_file = open(filename, 'wb')
                 input_file.close()
                 my_text.insert(END, "\n> Error: you need a valid API Key to use application,\n get Key from here: [https://platform.openai.com/account/api-keys]")
         except Exception as e:
             my_text.insert(END, f"\n\n There was an error: \n{e}")
+    chat_entry.delete(0, END)   # Clear chat entry
 
 def clear():
     my_text.delete(1.0, END)    # Clear chat histoy
@@ -113,6 +117,19 @@ chat_entry = customtkinter.CTkEntry(root,
     height=50,
     border_width=1)
 chat_entry.pack(pady=10)
+
+# Function to be called when Enter is pressed
+def enter_pressed(event):
+    send()
+
+# Function to be called when Shift+Enter is pressed
+def shift_enter_pressed(event):
+    # Add a newline character to the current chat entry
+    chat_entry.insert(END, '\n')
+
+# Bind the functions to the Entry widget
+chat_entry.bind('<Return>', enter_pressed)
+chat_entry.bind('<Shift-Return>', shift_enter_pressed)
 
 # Create buttons frame
 button_frame = customtkinter.CTkFrame(root, fg_color="#242424")
