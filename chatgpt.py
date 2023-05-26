@@ -14,16 +14,27 @@ root.iconbitmap('./icons/ai_lt.ico')
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
 
+filename = "api_key"
 # Buttons (send, clear, api, save_key)
 def send():
-    pass
+    if chat_entry.get():
+        try:
+            if os.path.isfile(filename):
+                input_file = open(filename, 'rb')
+                key = pickle.load(input_file)
+                my_text.insert(END, "Thinking...")
+            else:
+                input_file = open(filename, 'wb')
+                input_file.close()
+                my_text.insert(END, "\n> Error: you need a valid API Key to use application,\n get Key from here: [https://platform.openai.com/account/api-keys]")
+        except Exception as e:
+            my_text.insert(END, f"\n\n There was an error: \n{e}")
 
 def clear():
     my_text.delete(1.0, END)    # Clear chat histoy
 #    chat_entry.delete(0, END)   # Clear entry history
 
 def api():
-    filename = "api_key"
     try:
         if os.path.isfile(filename):
             input_file = open(filename, 'rb')
