@@ -14,7 +14,20 @@ root.iconbitmap('./icons/ai_lt.ico')
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
+# Create text frame
+text_frame = customtkinter.CTkFrame(root)
+text_frame.pack(pady=20)
 
+# Add text widget to get ChatGPT responses
+my_text = Text(text_frame,
+    bg="#343638",       # background "light grey"
+    width=65,
+    bd=1,
+    fg="#d6d6d6",       # foreground color - text inside
+    relief="flat",
+    wrap=WORD,
+    selectbackground="#1f538d")     # background of selection "blue"
+my_text.grid(row=0, column=0)
 
 
 
