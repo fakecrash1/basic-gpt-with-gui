@@ -17,8 +17,10 @@ customtkinter.set_default_color_theme("green")
 # Buttons (send, clear, api, save_key)
 def send():
     pass
+
 def clear():
-    pass
+    my_text.delete(1.0, END)    # Clear chat histoy
+#    chat_entry.delete(0, END)   # Clear entry history
 
 def api():
     filename = "api_key"
